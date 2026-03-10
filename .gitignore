@@ -1,2 +1,56 @@
 */node_modules/*
+.vs
+*/bin/*
+*/obj/*
+
+# Node / build
+dist/
+build/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env files
+.env
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Playwright test artifacts (screenshots, videos, traces)
+mailbox-app/testing-results/
+
+# Binaries / native
+*.dll
+*.exe
+*.so
+*.dylib
+*.pdb
+
+# .NET
+*.dll
+bin/
+obj/
+*.db
+
+# Python
+__pycache__/
+*.py[cod]
+
+# logs
+logs
+*.log
+
+# Lockfiles we don't want
+package-lock.json
+yarn.lock
 

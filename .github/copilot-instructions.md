@@ -52,6 +52,8 @@ Next steps (recommended)
 
 4. For UI projects: always run `npm install` and `npm run dev` locally to test any UI changes before submitting a PR. Running the dev server and verifying changes locally is required for UI work to ensure regressions are caught early.
 
+Note for Playwright screenshots: when running Playwright tests, avoid overwriting previous screenshots — version them (e.g. `inbox_v1.png`, `inbox_v2.png` or include timestamps) and store them in `testing-results/` so you can inspect a history of UI changes. Prefer incremental filenames or a small versioning helper in test code rather than replacing files.
+
 Maintainer note
 ---------------
 These instructions are deliberately guidance-first. If the team wants stricter enforcement (CI gates), add that as a separate, documented policy and include migration guidance.
