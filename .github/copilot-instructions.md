@@ -50,6 +50,8 @@ Next steps (recommended)
 2. If approved, add automated checklist items to PR templates that remind reviewers of the above principles (education-first, not auto-blocking enforcement).
 3. Optionally: create small example feature (vertical-slice) that demonstrates compliance.
 
+4. For UI projects: always run `npm install` and `npm run dev` locally to test any UI changes before submitting a PR. Running the dev server and verifying changes locally is required for UI work to ensure regressions are caught early.
+
 Maintainer note
 ---------------
 These instructions are deliberately guidance-first. If the team wants stricter enforcement (CI gates), add that as a separate, documented policy and include migration guidance.

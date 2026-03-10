@@ -1,0 +1,5 @@
+html,body,#root { height: 100%; }
+body { font-family: Roboto, Arial, sans-serif; background: #f5f7fa; margin: 0; }
+.MuiListItem-root { cursor: pointer; }
+.MuiListItem-root:hover { background: rgba(0,0,0,0.02); }
+.unread { background: #eef7ff; }
