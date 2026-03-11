@@ -1,30 +1,35 @@
 {
-  "name": "frontend",
-  "private": true,
-  "version": "0.0.0",
+  "name": "mailbox-app",
   "type": "module",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:e2e": "npx playwright install --with-deps && npx playwright test --reporter=list",
+    "generate:screenshots": "node scripts/generate-screenshots-index.cjs"
   },
   "dependencies": {
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1"
+    "@emotion/react": "^11.12.0",
+    "@emotion/styled": "^11.12.0",
+    "@faker-js/faker": "^8.0.2",
+    "@mui/icons-material": "^5.14.0",
+    "@mui/material": "^5.14.0",
+    "clsx": "^1.2.1",
+    "date-fns": "^2.30.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.1",
+    "zustand": "^4.4.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@types/node": "^24.10.1",
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.1",
-    "eslint": "^9.39.1",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.24",
-    "globals": "^16.5.0",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "^8.48.1",
-    "vite": "^7.2.6"
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "typescript": "^5.5.0",
+    "vite": "^5.1.7",
+    "@vitejs/plugin-react": "^5.0.1",
+    "@playwright/test": "^1.40.0",
+    "playwright": "^1.40.0"
   }
 }
