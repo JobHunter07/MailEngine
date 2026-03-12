@@ -75,6 +75,10 @@
   - Redirect unauthenticated users to `/login`.
   - Redirect authenticated users to `/inbox` or main app.
 
+Status: [x] `src/pages/LoginPage.tsx` created
+Status: [x] `src/store/useAuthStore.ts` created
+Status: [x] Router updated to include `/login` and redirect unauthenticated users
+
 ---
 
 ## 6. Frontend: dependencies
