@@ -12,6 +12,64 @@ This design supports MailEngine’s long‑term goals:
 
 ---
 
+## Folder Structure (Google Auth Feature)
+
+The Google Sign‑In feature introduces new backend and frontend components.  
+This structure isolates Google authentication logic, supports provider‑agnostic expansion, and keeps the implementation aligned with existing MailEngine architecture.
+
+```
+src/
+  MailEngine.Server/
+    Controllers/
+      GoogleAuthController.cs
+      GoogleDemoController.cs
+
+    Services/
+      GoogleAuth/
+        IGoogleAuthService.cs
+        GoogleAuthService.cs
+        GooglePkceService.cs
+        GoogleStateService.cs
+
+      GoogleTokens/
+        IGoogleTokenStore.cs
+        GoogleTokenStore.cs
+
+      GoogleAccounts/
+        IGoogleProviderAccountService.cs
+        GoogleProviderAccountService.cs
+
+    Models/
+      Auth/
+        GoogleAuthState.cs
+        GoogleTokenResponse.cs
+        GoogleUserInfo.cs
+
+    Configuration/
+      GoogleAuthOptions.cs
+
+    appsettings.json
+    appsettings.Development.json
+
+  frontend/
+    mailbox-app/
+      src/
+        pages/
+          LoginPage.tsx
+
+        store/
+          useAuthStore.ts
+
+        router/
+          index.tsx
+
+        api/
+          googleAuthApi.ts
+          googleDemoApi.ts
+
+        components/
+          GoogleSignInButton.tsx
+```
 # Components
 
 ## Frontend
