@@ -44,6 +44,12 @@ export default defineConfig({
         target: process.env.SERVER_HTTPS || process.env.SERVER_HTTP,
         changeOrigin: true
       }
+      ,
+      // Proxy auth endpoints during frontend development
+      '/auth': {
+        target: process.env.SERVER_HTTPS || process.env.SERVER_HTTP,
+        changeOrigin: true
+      }
     }
   }
 })

@@ -1,39 +1,39 @@
 import React from 'react'
 import Button from '@mui/material/Button'
-import useAuthStore from '../store/useAuthStore'
 
 export default function LoginPage() {
-  const setSession = useAuthStore((s) => s.setSession)
-
   const startLogin = async () => {
     const res = await fetch('/auth/google/start')
     if (!res.ok) return
-    const data = await res.json()
-    // store state if needed
-    window.location.href = data.redirect
-  }
+    const text = await res.text()
+    try {
+      const data = JSON.parse(text)
+      if (data && data.redirect) {
+        window.location.href = data.redirect
+        return
+      }
+      // Not the expected shape; fall through to try to use the text
+    } catch (err) {
+      // Ignore JSON parse error and try to handle as plain text
+    }
 
-  const demoLabels = async () => {
-    const res = await fetch('/api/google/demo/labels')
-    if (!res.ok) {
-      alert('Demo labels failed')
+    // If server returned a raw URL or an HTML page containing a redirect link,
+    // attempt to extract a URL; otherwise show error to help debugging.
+    const maybeUrlMatch = text.match(/https?:\/\/[^"'<>\s]+/)
+    if (maybeUrlMatch) {
+      window.location.href = maybeUrlMatch[0]
       return
     }
-    const json = await res.json()
-    alert('Labels: ' + JSON.stringify(json))
-    // if session cookie was set by server, read it
-    const cookie = document.cookie.match(/mailengine_session=([^;]+)/)?.[1]
-    if (cookie) setSession(cookie)
+
+    console.error('Unexpected response from /auth/google/start:', text)
+    alert('Login failed: unexpected server response. See console for details.')
   }
 
   return (
-    <div style={{ padding: 24 }}>
-      <h2>Sign in</h2>
-      <p>Sign in with Google to connect your Gmail account.</p>
-      <Button variant="contained" color="primary" onClick={startLogin} style={{ marginRight: 12 }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+      <Button variant="contained" color="primary" onClick={startLogin}>
         Sign in with Google
       </Button>
-      <Button variant="outlined" onClick={demoLabels}>Demo labels (mock)</Button>
     </div>
   )
 }
