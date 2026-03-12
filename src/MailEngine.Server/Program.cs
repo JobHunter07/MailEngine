@@ -3,6 +3,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add service defaults & Aspire client integrations.
 builder.AddServiceDefaults();
 
+// Allow CORS in development so frontend can call backend during local dev
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevCors", policy =>
+    {
+        // In development accept any origin and allow credentials for ease of testing
+        policy.SetIsOriginAllowed(_ => true)
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 // Add services to the container.
 builder.Services.AddProblemDetails();
 builder.Services.AddMemoryCache();
@@ -26,6 +39,9 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+// Use CORS before mapping controllers so requests from the frontend are accepted
+app.UseCors("DevCors");
 
 app.MapControllers();
 

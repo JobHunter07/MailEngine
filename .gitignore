@@ -55,3 +55,4 @@ package-lock.json
 yarn.lock
 
 src/MailEngine.Server/data/*
+src/MailEngine.Server/appsettings.Development.json

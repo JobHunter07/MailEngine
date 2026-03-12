@@ -62,7 +62,11 @@ public class GoogleAuthController : ControllerBase
         // Set a simple session cookie (placeholder). Real implementation should set secure, httpOnly cookie.
         Response.Cookies.Append("mailengine_session", googleUserId, new Microsoft.AspNetCore.Http.CookieOptions { HttpOnly = true, SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict });
 
-        return Redirect("/");
+        // Redirect to frontend app inbox route to avoid server root 404 in dev
+        var frontendUrl = _config["Frontend:Url"] ?? string.Empty;
+        frontendUrl = frontendUrl?.TrimEnd('/') ?? string.Empty;
+        var redirectTo = string.IsNullOrEmpty(frontendUrl) ? "/inbox" : $"{frontendUrl}/inbox";
+        return Redirect(redirectTo);
     }
 
     [HttpPost("logout")]
