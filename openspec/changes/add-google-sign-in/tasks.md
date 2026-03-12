@@ -13,13 +13,13 @@
 ---
 
 ## 2. Add change scaffold (already done)
-- Location: `openspec/changes/add-google-sign-in/`
+- [x] Location: `openspec/changes/add-google-sign-in/`
 
 ---
 
 ## 3. Backend: configuration
-- Add `Google:ClientId`, `Google:ClientSecret`, `Google:RedirectUri` to `appsettings.Development.json`.
-- Add DI registration for:
+- [x] Add `Google:ClientId`, `Google:ClientSecret`, `Google:RedirectUri` to `appsettings.Development.json`.
+- [x] Add DI registration for:
   - `IGoogleAuthService`
   - `IGoogleTokenStore`
   - `IGoogleProviderAccountService`
