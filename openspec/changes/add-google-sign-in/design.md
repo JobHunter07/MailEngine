@@ -10,6 +10,43 @@ This design supports MailEngine’s long‑term goals:
 - Secure token lifecycle management
 - Future expansion to Outlook, IMAP, and desktop clients
 
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant Backend
+    participant GoogleAuth as Google Auth Server
+    participant GoogleAPI as Google API
+
+    User->>Frontend: Click "Sign in with Google"
+    Frontend->>Frontend: Generate code_verifier & code_challenge (PKCE)
+    Frontend->>GoogleAuth: Redirect to /authorize with code_challenge
+    GoogleAuth->>User: Show consent screen
+    User->>GoogleAuth: Grant permissions
+    GoogleAuth->>Frontend: Redirect to callback with authorization_code
+    Frontend->>Backend: POST /auth/google/callback with auth_code & code_verifier
+    Backend->>Backend: Validate code_verifier against code_challenge
+    Backend->>GoogleAuth: POST /token with auth_code, code_verifier, client_id, client_secret
+    GoogleAuth->>Backend: Return access_token & refresh_token
+    Backend->>Backend: Store tokens securely (encrypted)
+    Backend->>Backend: Create Gmail provider account root
+    Backend->>Backend: Generate session_id
+    Backend->>Frontend: Set secure session cookie + Return user data
+    Frontend->>User: Show authenticated state
+    User->>Frontend: Request Gmail data
+    Frontend->>Backend: GET /api/gmail/messages (with session cookie)
+    Backend->>Backend: Retrieve stored access_token
+    Backend->>GoogleAPI: GET /gmail/v1/users/me/messages
+    GoogleAPI->>Backend: Return Gmail messages
+    Backend->>Frontend: Return Gmail data (proxied)
+    Frontend->>User: Display Gmail messages
+    Note over Backend: Token refresh handled server-side when needed
+    Backend->>GoogleAuth: POST /token with refresh_token (if access_token expired)
+    GoogleAuth->>Backend: Return new access_token
+    Backend->>Backend: Update stored access_token
+```
+
+
 ---
 
 ## Folder Structure (Google Auth Feature)
@@ -205,5 +242,5 @@ MailEngine must support multiple Gmail accounts per user.
 Add the following redirect URIs to Google Cloud:
 
 ### Local development
-- http://localhost:5001/auth/google/callback
-- http://localhost:300
+- http://webfrontend-mailengine.dev.localhost:55459/auth/google/callback
+- https://server-mailengine.dev.localhost:7416/

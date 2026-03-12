@@ -3,9 +3,8 @@
 ## 1. Project setup & prerequisites
 - Create a Google Cloud project and OAuth 2.0 credentials (Web Application).
 - Add redirect URIs for local and production:
-  - http://localhost:5001/auth/google/callback
-  - http://localhost:3000/auth/google/callback
-  - https://app.mailengine.dev/auth/google/callback
+  - https://server-mailengine.dev.localhost:7416//auth/google/callback
+  - http://webfrontend-mailengine.dev.localhost:55459/auth/google/callback
 - Obtain `ClientId` and `ClientSecret`.
 - Enable Gmail API, Calendar API, People API (Contacts), and Drive API in Google Cloud.
 - Document all required scopes and justification for Google OAuth verification.
@@ -161,7 +160,7 @@
 - Test disconnect and token revocation.
 
 ### Automated tests
-- Add integration tests (Playwright or Cypress):
+- Add integration tests (Playwright):
   - Login redirect
   - Callback handling
   - Session cookie behavior
