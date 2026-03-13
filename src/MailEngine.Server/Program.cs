@@ -27,6 +27,24 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// Read Aspire-injected Postgres connection info (if available) and log for developer visibility.
+// Aspire injects resource properties as env vars named after the resource, e.g. POSTGRESDB_URI.
+var postgresUri = builder.Configuration["POSTGRESDB_URI"] ?? Environment.GetEnvironmentVariable("POSTGRESDB_URI");
+if (!string.IsNullOrEmpty(postgresUri))
+{
+    Console.WriteLine($"[Startup] Detected Aspire Postgres URI: {postgresUri}");
+    // Register Aspire Npgsql data source so the app can obtain an NpgsqlDataSource via DI.
+    try
+    {
+        builder.AddNpgsqlDataSource("postgresdb");
+        Console.WriteLine("[Startup] Registered Aspire Npgsql data source 'postgresdb'.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[Startup] Could not register Npgsql data source: {ex.Message}");
+    }
+}
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

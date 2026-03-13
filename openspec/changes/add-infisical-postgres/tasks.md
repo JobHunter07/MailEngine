@@ -8,8 +8,10 @@
    - Add `proposal.md`, `design.md`, `tasks.md` (done).
 
 3. Add PostgreSQL hosting resource to AppHost (1h)
-   - Update `AppHost.cs` to add Postgres resource and a database instance using `AddPostgres` and `AddDatabase`.
+   - Update `AppHost.cs` to add Postgres resource and a database instance using `AddPostgres` and `AddDatabase`.  
    - Configure persistence options and optional pgAdmin resource for visibility.
+
+   - Status: **Done** — `AppHost.cs` updated to add `postgres` and `postgresdb` resources and to wait for `postgresdb` before starting `MailEngine_Server`.
 
 4. Deploy Infisical into AppHost (2h)
    - Add a container/helm resource in AppHost for Infisical using the official docker-compose/helm template.
@@ -17,8 +19,10 @@
    - Seed Infisical initial admin token or document machine identity creation steps.
 
 5. App config changes (2h)
-   - MailEngine.Server: read Aspire-injected `POSTGRESDB_URI` from configuration and use `Npgsql`/Aspire client registration.
+   - MailEngine.Server: read Aspire-injected `POSTGRESDB_URI` from configuration and use `Npgsql`/Aspire client registration.  
    - Add startup code to fetch required non-DB secrets from Infisical (use SDK or `infisical export` integrated into the container entrypoint).
+
+   - Status: **In progress** — `Program.cs` updated to read and log `POSTGRESDB_URI`. Next: add `Aspire.Npgsql` package and register `NpgsqlDataSource` using the injected connection name.
 
 6. Certificates & PKI (1h)
    - Configure Infisical PKI profiles for developer cert issuance.
