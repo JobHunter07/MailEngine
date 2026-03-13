@@ -5,7 +5,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://mailengine.dev.localhost:17190;http://mailengine.dev.localhost:15285",
+      "applicationUrl": "https://mailengine.dev.localhost:17190;http://mailengine.dev.localhost:15285;https://localhost:7416;http://localhost:5592",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "DOTNET_ENVIRONMENT": "Development",
@@ -18,7 +18,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "http://mailengine.dev.localhost:15285",
+      "applicationUrl": "http://mailengine.dev.localhost:15285;http://localhost:5592",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "DOTNET_ENVIRONMENT": "Development",

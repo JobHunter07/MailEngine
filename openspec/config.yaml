@@ -4,10 +4,10 @@ schema: spec-driven
 # This is shown to AI when creating artifacts.
 # Add your tech stack, conventions, style guides, domain knowledge, etc.
 # Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+ context: |
+ Tech stack: TypeScript (latest), React (latest), .net 10, C# 14, Aspire 13
+ - We use conventional commits
+ Domain: Mail 
 
 # Per-artifact rules (optional)
 # Add custom rules for specific artifacts.
@@ -18,3 +18,58 @@ schema: spec-driven
 #       - Always include a "Non-goals" section
 #     tasks:
 #       - Break tasks into chunks of max 2 hours
+
+# Archive policy: preserve originals and make archives write-only
+archive:
+	# When archiving a change, preserve the original files in their original location.
+	# The archiving operation should create a new folder under
+	# `openspec/changes/archive/YYYY-MM-DD-<change-name>/` and copy the original
+	# artifact files into it. Do NOT delete or modify the originals as part of
+	# the archive operation.
+	preserve_original: true
+	# Use copy semantics to create the archive while keeping the source files.
+	operation: copy
+	# Target directory template for archives
+	target_dir: "openspec/changes/archive/YYYY-MM-DD-<change-name>/"
+	# Post-archive policy enforces write-only archive behavior:
+	# - Archives are append-only: new files may be added (e.g., metadata), but
+	#   existing archived files MUST NOT be modified or deleted.
+	# - Tooling should prevent any delete/modify operations on archived files.
+	post_archive_policy:
+		write_only: true
+		allow_appends: true
+		forbid_delete_or_modify: true
+	note: |
+		At times the project may add supplementary artifacts into the archive for
+		historical context (append-only). Once `/opsx:archive` has been triggered
+		for a change, the archived copy is considered immutable: do not edit or
+		delete archived artifact files. Keep the originals in-place for live
+		reference.
+
+# Enforce-latest policy
+# Guidance for tooling and CI: prefer latest stable releases for the following
+# components. Tooling may validate versions during CI and artifact generation.
+enforce_latest:
+	description: "Prefer the latest stable versions for primary stack components. CI or tooling should warn or fail if pinned/older versions are detected without justification."
+	components:
+		- name: TypeScript
+			enforce_latest: true
+			check_command: "npx -y npm-check-updates --version || true"
+		- name: React
+			enforce_latest: true
+			check_command: "npm show react version"
+		- name: dotnet
+			enforce_latest: false
+			note: "Use .NET 10 as the baseline runtime; evaluate newer LTS releases before upgrading."
+		- name: C#
+			enforce_latest: false
+			note: "C# language version follows the selected SDK; prefer latest compatible with chosen SDK."
+		- name: Aspire
+			enforce_latest: true
+			check_command: "aspire --version || true"
+
+	policy:
+		- allow_manual_override: true
+		- require_override_reason: true
+		- ci_behavior: "warn-by-default; fail-if-explicitly-configured-to-enforce"
+

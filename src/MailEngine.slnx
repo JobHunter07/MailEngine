@@ -4,5 +4,6 @@
     <Deploy />
   </Project>
   <Project Path="MailEngine.AppHost/MailEngine.AppHost.csproj" />
+  <Project Path="MailEngine.Server.Tests/MailEngine.Server.Tests.csproj" />
   <Project Path="MailEngine.Server/MailEngine.Server.csproj" />
 </Solution>
