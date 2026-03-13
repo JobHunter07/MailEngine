@@ -8,11 +8,9 @@ import SentPage from '../pages/SentPage'
 import DraftsPage from '../pages/DraftsPage'
 import ArchivePage from '../pages/ArchivePage'
 import TrashPage from '../pages/TrashPage'
-import LoginPage from '../pages/LoginPage'
 
 const routes = [
   { path: '/inbox', element: <InboxPage /> },
-  { path: '/login', element: <LoginPage /> },
   { path: '/mail/:id', element: <MailReadPage /> },
   { path: '/compose', element: <ComposePage /> },
   { path: '/label/:labelName', element: <LabelPage /> },

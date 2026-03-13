@@ -68,3 +68,7 @@ How to use this when creating a new repo from the template
 Contributing
 ------------
 Suggestions and improvements to this template are welcome. Please open an issue or PR that explains the rationale and migration path for changes to the base rules.
+
+Auth strategy note
+------------------
+The provisional direct Google OAuth implementation was reverted in favor of delegating authentication and social identity federation to Keycloak. Keycloak is a vetted open‑source identity provider (https://www.keycloak.org/) and reduces risk compared to implementing custom OAuth/token storage and session management.

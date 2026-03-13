@@ -22,10 +22,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 
-// Register Google services
-builder.Services.AddSingleton<MailEngine.Server.Services.IGoogleAuthService, MailEngine.Server.Services.GoogleAuthService>();
-builder.Services.AddSingleton<MailEngine.Server.Services.IGoogleTokenStore, MailEngine.Server.Services.GoogleTokenStore>();
-builder.Services.AddSingleton<MailEngine.Server.Services.IGoogleProviderAccountService, MailEngine.Server.Services.GoogleProviderAccountService>();
+// Google services were removed; Keycloak will be used for authentication/federation.
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
