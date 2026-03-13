@@ -22,7 +22,7 @@
    - MailEngine.Server: read Aspire-injected `POSTGRESDB_URI` from configuration and use `Npgsql`/Aspire client registration.  
    - Add startup code to fetch required non-DB secrets from Infisical (use SDK or `infisical export` integrated into the container entrypoint).
 
-   - Status: **In progress** — `Program.cs` updated to read and log `POSTGRESDB_URI`. Next: add `Aspire.Npgsql` package and register `NpgsqlDataSource` using the injected connection name.
+   - Status: **Done** — `Program.cs` updated to read and log `POSTGRESDB_URI` and `Aspire.Npgsql` added with `AddNpgsqlDataSource("postgresdb")` registration.
 
 6. Certificates & PKI (1h)
    - Configure Infisical PKI profiles for developer cert issuance.
@@ -33,6 +33,8 @@
 
 8. Integration tests & validation (2h)
    - Run end-to-end dev flow: `aspire run` -> Infisical UI reachable -> MailEngine.Server connects to Postgres -> secrets fetched from Infisical -> smoke tests pass.
+
+   - Status: **Done** — Added integration test `PostgresIntegrationTests` in `MailEngine.Server.Tests`. Test uses `POSTGRESDB_URI` if present, otherwise will start a Testcontainers Postgres when Docker is available. Tests run locally (skip starting Docker if environment lacks Docker).
 
 9. Docs and runbook (1h)
    - Document developer steps to bootstrap Infisical machine identity, run AppHost, and test secret fetch.
